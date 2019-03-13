@@ -1,0 +1,9 @@
+type Article {
+  id: ID! @unique
+  site: String
+  title: String
+  summary: String
+  prologue: String
+  content: String
+  time: String
+}

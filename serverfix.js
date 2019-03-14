@@ -11,6 +11,8 @@ const db = require("knex")({
 		ssl: true
 	}
 });
+const prisma = require("./src/prisma");
+console.log(prisma);
 
 /*rp(url1)
 	.then(html => {
@@ -50,8 +52,9 @@ const scrapSites = data => {
 						return extractArticleSport24(urls);
 					})
 				)
-					.then(final =>
-						final.map(results =>
+					.then(
+						final => console.log("final")
+						/*final.map(results =>
 							db("sportsarticles")
 								.insert({
 									site: results.site,
@@ -63,7 +66,7 @@ const scrapSites = data => {
 								})
 								.then(data => console.log("pg works"))
 								.catch(err => console.log(err))
-						)
+						)*/
 					)
 					.catch(err => console.log("Error"));
 			} /*else if (url.includes("contra.gr")) {

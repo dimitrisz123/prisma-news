@@ -1,7 +1,6 @@
 const rp = require("request-promise");
 const $ = require("cheerio");
 const prisma = require("./src/prisma");
-// console.log(prisma.prisma);
 
 /*rp(url1)
 	.then(html => {
@@ -43,22 +42,29 @@ const scrapSites = data => {
 				)
 					.then(final => {
 						final.map(results => {
-							prisma.prisma.mutation.createArticle(
-								{
-									data: {
-										site: results.site,
-										title: results.title,
-										summary: results.summary,
-										prologue: results.prologue,
-										content: results.content,
-										time: results.time
-									}
-								},
-								"{ id title }"
+							console.log(
+								prisma.prisma.exists
+									.Article({
+										site: results.site
+									})
+									.then(data => console.log(data))
 							);
+							// prisma.prisma.mutation.createArticle(
+							// 	{
+							// 		data: {
+							// 			site: results.site,
+							// 			title: results.title,
+							// 			summary: results.summary,
+							// 			prologue: results.prologue,
+							// 			content: results.content,
+							// 			time: results.time
+							// 		}
+							// 	},
+							// 	"{ id title }"
+							// );
 						});
 					})
-					.then(data => console.log("pg works"))
+					.then(data => console.log("it worked"))
 					.catch(err => console.log(err));
 			} /*else if (url.includes("contra.gr")) {
 				const len = $("a.summary", "div", html).length;

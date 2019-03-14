@@ -1,18 +1,7 @@
 const rp = require("request-promise");
 const $ = require("cheerio");
-const db = require("knex")({
-	client: "pg",
-	connection: {
-		host: "ec2-46-137-170-51.eu-west-1.compute.amazonaws.com",
-		user: "rpvafjegwhdcbx",
-		password:
-			"988b9ebcfd51edae1ec98795306bfc2f945b26a075658ed40a727a520d7725d0",
-		database: "d4qbh7p71acu2r",
-		ssl: true
-	}
-});
 const prisma = require("./src/prisma");
-console.log(prisma);
+// console.log(prisma.prisma);
 
 /*rp(url1)
 	.then(html => {
@@ -52,23 +41,25 @@ const scrapSites = data => {
 						return extractArticleSport24(urls);
 					})
 				)
-					.then(
-						final => console.log("final")
-						/*final.map(results =>
-							db("sportsarticles")
-								.insert({
-									site: results.site,
-									title: results.title,
-									summary: results.summary,
-									prologue: results.prologue,
-									content: results.content,
-									time: results.time
-								})
-								.then(data => console.log("pg works"))
-								.catch(err => console.log(err))
-						)*/
-					)
-					.catch(err => console.log("Error"));
+					.then(final => {
+						final.map(results => {
+							prisma.prisma.mutation.createArticle(
+								{
+									data: {
+										site: results.site,
+										title: results.title,
+										summary: results.summary,
+										prologue: results.prologue,
+										content: results.content,
+										time: results.time
+									}
+								},
+								"{ id title }"
+							);
+						});
+					})
+					.then(data => console.log("pg works"))
+					.catch(err => console.log(err));
 			} /*else if (url.includes("contra.gr")) {
 				const len = $("a.summary", "div", html).length;
 				const selector = $("a.summary", "div", html);

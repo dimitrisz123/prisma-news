@@ -7,7 +7,6 @@ const sport24Handler = data => {
 		.then(html => {
 			const len = $("h2 > a", html).length;
 			const selector = $("h2 > a", html);
-			let links = [];
 			for (let i = 0; i < len; i++) {
 				prisma.prisma.exists
 					.Article({

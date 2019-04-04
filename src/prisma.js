@@ -5,4 +5,4 @@ const prisma = new Prisma({
 	endpoint: "http://localhost:4466/"
 });
 
-module.exports = { prisma: prisma };
+module.exports = prisma;

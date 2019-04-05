@@ -1,7 +1,4 @@
-const rp = require("request-promise");
-const $ = require("cheerio");
-const prisma = require("./src/prisma");
-
+const sport24 = require("./sport24");
 /*rp(url1)
 	.then(html => {
 		let sport24football = [];
@@ -18,96 +15,33 @@ const prisma = require("./src/prisma");
 	})
 	.catch(err => console.log("Error fetching sport24football"));*/
 
-const urls = [
-	"https://www.sport24.gr/latest/",
-	"https://www.contra.gr/latest/"
-];
-
-const scrapSites = data => {
-	urls.map(url => {
-		rp(url).then(html => {
-			if (url.includes("sport24")) {
-				const len = $("h2 > a", html).length;
-				const selector = $("h2 > a", html);
-				let links = [];
-				for (let i = 0; i < len; i++) {
-					if (!selector[i].attribs.href.includes("LiveMatches")) {
-						links.push(selector[i].attribs.href);
-					}
-				}
-				return Promise.all(
-					links.map(urls => {
-						return extractArticleSport24(urls);
-					})
-				)
-					.then(final => {
-						final.map(results => {
-							console.log(
-								prisma.prisma.exists
-									.Article({
-										site: results.site
-									})
-									.then(data => console.log(data))
-							);
-							// prisma.prisma.mutation.createArticle(
-							// 	{
-							// 		data: {
-							// 			site: results.site,
-							// 			title: results.title,
-							// 			summary: results.summary,
-							// 			prologue: results.prologue,
-							// 			content: results.content,
-							// 			time: results.time
-							// 		}
-							// 	},
-							// 	"{ id title }"
-							// );
-						});
-					})
-					.then(data => console.log("it worked"))
-					.catch(err => console.log(err));
-			} /*else if (url.includes("contra.gr")) {
-				const len = $("a.summary", "div", html).length;
-				const selector = $("a.summary", "div", html);
-				let links = [];
-				for (let i = 0; i < len; i++) {
-					if (!selector[i].attribs.href.includes("livematches")) {
-						links.push(selector[i].attribs.href);
-					}
-				}
-				return Promise.all(
-					links.map(urls => {
-						// return extractArticleSport24(urls);
-						console.log("contra");
-					})
-				);
-				// .then(final => console.log("final"))
-				// .catch(err => console.log("Error"));
-				console.log(links);
-			}*/
-		});
-	});
+const scrapSites = () => {
+	const urls = {
+		sport24: "https://www.sport24.gr/latest/",
+		contra: "https://www.contra.gr/latest/"
+	};
+	sport24.sport24Handler(urls);
 };
 
-const extractArticleSport24 = data => {
-	return rp(data)
-		.then(article => {
-			return {
-				site: data,
-				title: $("div > h1", article)[0].children[0].data,
-				summary: $("p.summary", article)[0].children[0].data,
-				prologue: $("div.prologue", article)
-					.text()
-					.replace(/[\n\t\r]/g, ""),
-				content: $("div.body", article)
-					.text()
-					.replace(/[\n\t\r]/g, ""),
-				time: $("b", "span.byline_date", article)[0].children[0].data
-			};
-		})
-		.catch(err => console.log("Error extractArticle"));
-};
-scrapSites(urls);
+// const extractArticleSport24 = data => {
+// 	return rp(data)
+// 		.then(article => {
+// 			return {
+// 				site: data,
+// 				title: $("div > h1", article)[0].children[0].data,
+// 				summary: $("p.summary", article)[0].children[0].data,
+// 				prologue: $("div.prologue", article)
+// 					.text()
+// 					.replace(/[\n\t\r]/g, ""),
+// 				content: $("div.body", article)
+// 					.text()
+// 					.replace(/[\n\t\r]/g, ""),
+// 				time: $("b", "span.byline_date", article)[0].children[0].data
+// 			};
+// 		})
+// 		.catch(err => console.log("Error extractArticle"));
+// };
+scrapSites();
 
 // const extractArticle = data => {
 // 	return rp(data).then(article => {

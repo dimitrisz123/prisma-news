@@ -22,7 +22,7 @@ const scrapSites = () => {
 	};
 	sport24.sport24Handler(urls);
 };
-
+scrapSites();
 // const extractArticleSport24 = data => {
 // 	return rp(data)
 // 		.then(article => {
@@ -41,7 +41,6 @@ const scrapSites = () => {
 // 		})
 // 		.catch(err => console.log("Error extractArticle"));
 // };
-scrapSites();
 
 // const extractArticle = data => {
 // 	return rp(data).then(article => {

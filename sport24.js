@@ -8,18 +8,17 @@ const sport24Handler = data => {
 			const len = $("h2 > a", html).length;
 			const selector = $("h2 > a", html);
 			for (let i = 0; i < len; i++) {
-				prisma.prisma.exists
+				prisma.exists
 					.Article({
 						site: selector[i].attribs.href
 					})
 					.then(resp => {
-						console.log(resp);
 						if (
 							!resp &&
 							!selector[i].attribs.href.includes("LiveMatches")
 						) {
 							rp(selector[i].attribs.href).then(article => {
-								prisma.prisma.mutation
+								prisma.mutation
 									.createArticle(
 										{
 											data: {
@@ -49,7 +48,7 @@ const sport24Handler = data => {
 										"{ id title }"
 									)
 									.then(response => console.log(response))
-									.catch(err => console.log(err));
+									.catch(err => console.log("Error"));
 							});
 						}
 					});

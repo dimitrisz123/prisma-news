@@ -2,8 +2,8 @@ const rp = require("request-promise");
 const $ = require("cheerio");
 const prisma = require("./src/prisma");
 
-const sport24Handler = data => {
-	rp(data.sport24)
+const sport24Handler = ({ sport24 }) => {
+	rp(sport24)
 		.then(html => {
 			const len = $("h2 > a", html).length;
 			const selector = $("h2 > a", html);

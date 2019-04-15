@@ -4,12 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start-dev": "node serverfix.js",
-    "start-dev2": "nodemon index.js",
+    "start-dev": "node serverdev.js",
     "dev": "nodemon server.js",
-    "dev1": "nodemon serverfix.js"
+    "start-dev1": "nodemon serverdev.js"
   },
   "keywords": [],
   "author": "",

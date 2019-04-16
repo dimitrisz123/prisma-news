@@ -48,8 +48,8 @@ const sport24Handler = ({ sport24 }) => {
 										"{ id title }"
 									)
 									.then(response => console.log(response))
-									.catch(err => console.log("Error"));
-							});
+									.catch(err => console.log("Error adding to the db"));
+							}).catch(err => console.log("error rp"))
 						}
 					});
 			}

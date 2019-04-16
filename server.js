@@ -1,3 +1,6 @@
+const rp = require("request-promise");
+const $ = require("cheerio");
+const prisma = require("./src/prisma");
 const sport24 = require("./sport24");
 
 const scrapSites = () => {
@@ -7,6 +10,6 @@ const scrapSites = () => {
 		inGr: "https://www.in.gr/latestnews/",
 		news247: "https://www.news247.gr/latest/"
 	};
-	sport24.sport24Handler(urls);
+	sport24.sport24Handler(urls, rp, $, prisma);
 };
 scrapSites();

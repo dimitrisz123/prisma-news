@@ -2,8 +2,8 @@ const rp = require("request-promise");
 const $ = require("cheerio");
 const prisma = require("./src/prisma");
 
-const sport24Handler = ({ sport24 }) => {
-	rp(sport24)
+const sport24Handler = ({ inGr }) => {
+	rp(inGr)
 		.then(html => {
 			const len = $("h2 > a", html).length;
 			const selector = $("h2 > a", html);
@@ -13,9 +13,10 @@ const sport24Handler = ({ sport24 }) => {
 						site: selector[i].attribs.href
 					})
 					.then(resp => {
-						if (
-							!resp &&
+						const isValid = !resp &&
 							!selector[i].attribs.href.includes("LiveMatches")
+						if (
+							isValid
 						) {
 							rp(selector[i].attribs.href).then(article => {
 								prisma.mutation

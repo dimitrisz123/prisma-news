@@ -3,9 +3,11 @@ const { testFunction } = require("./testFunction");
 const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 	rp(sport24)
 		.then(html => {
-			const len = $("h2 > a", html).length;
 			const selector = $("h2 > a", html);
-			testFunction(len, selector, rp, $, prisma, sport24ArticlesToDb);
+			let arr = [];
+			for (let i = 1; i < selector.length; i++) {
+				arr.push;
+			}
 		})
 		.catch(err => console.log(err));
 };

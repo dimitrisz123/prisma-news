@@ -3,7 +3,7 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 		.then(html => {
 			const selector = $("h2 > a", html);
 			const len = selector.length;
-			for (let i = 1; i < selector.length; i++) {
+			for (let i = 1; i < len; i++) {
 				prisma.exists
 					.Article({
 						site: selector[i].attribs.href

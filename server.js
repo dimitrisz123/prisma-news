@@ -3,6 +3,11 @@ const $ = require("cheerio");
 const prisma = require("./src/prisma");
 const { sport24Handler } = require("./sport24");
 const { inGrHandler } = require("./inGr");
+const http = require("http");
+const https = require("https");
+
+http.globalAgent.maxSockets = 1;
+https.globalAgent.maxSockets = 1;
 
 const scrapSites = async () => {
 	const urls = {

@@ -5,8 +5,7 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 			const len = selector.length;
 			for (let i = 1; i < len; i++) {
 				if (selector[i].attribs.href.includes("www.in.gr")) {
-					console.log(selector[i].attribs.href);
-					devFunction(selector[i].attribs.href, rp, $);
+					return devFunction(selector[i].attribs.href, rp, $);
 				}
 				// prisma.exists
 				// 	.Article({
@@ -72,6 +71,9 @@ const devFunction = (articleUrl, rp, $) => {
 			)[0].children[0].data;
 			inGrDev.prologue = null;
 			inGrDev.content = null;
+			inGrDev.image = $("div.content-single-image > img", article).attr(
+				"data-src"
+			);
 			inGrDev.time = null;
 			console.log(inGrDev);
 		})

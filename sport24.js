@@ -1,13 +1,26 @@
 const { testFunction } = require("./testFunction");
 
 const sport24Handler = ({ sport24 }, rp, $, prisma) => {
-	rp(sport24)
+	let articlesUrl = [];
+	return rp(sport24)
 		.then(html => {
 			const selector = $("h2 > a", html);
-			let arr = [];
 			for (let i = 1; i < selector.length; i++) {
-				arr.push;
+				prisma.exists
+					.Article({
+						site: selector[i].attribs.href
+					})
+					.then(resp => {
+						const isValid =
+							!resp &&
+							!selector[i].attribs.href.includes("LiveMatches");
+						if (isValid) {
+							articlesUrl.push(selector[i].attribs.href);
+						}
+					})
+					.catch(err => console.log(err));
 			}
+			console.log(articlesUrl);
 		})
 		.catch(err => console.log(err));
 };

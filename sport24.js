@@ -2,6 +2,7 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 	return rp(sport24)
 		.then(html => {
 			const selector = $("h2 > a", html);
+			const len = selector.length;
 			for (let i = 1; i < selector.length; i++) {
 				prisma.exists
 					.Article({

@@ -2,9 +2,11 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 	return rp(inGr)
 		.then(html => {
 			const selector = $("span > a", html);
-			for (let i = 1; i < selector.length; i++) {
-				console.log(selector[i].attribs.href);
-				devFunction(articleUrl, rp, $);
+			const len = selector.length;
+			for (let i = 1; i < len; i++) {
+				if (selector[i].attribs.href.includes("www.in.gr")) {
+					devFunction(selector[i].attribs.href, rp, $);
+				}
 				// prisma.exists
 				// 	.Article({
 				// 		site: selector[i].attribs.href
@@ -57,7 +59,23 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 // 		.catch(err => console.log("Error rp"));
 // };
 
-const devFunction = (articleUrl, rp, $) => {};
+const devFunction = (articleUrl, rp, $) => {
+	rp(articleUrl)
+		.then(article => {
+			inGrDev = {};
+			inGrDev.site = articleUrl;
+			inGrDev.title = $("div > h1", article)[0].children[0].data;
+			inGrDev.summary = $(
+				"div.tooth-row > span.article-summary",
+				article
+			)[0].children[0].data;
+			inGrDev.prologue = null;
+			inGrDev.content = null;
+			inGrDev.time = null;
+			console.log(inGrDev);
+		})
+		.catch(err => console.log(err));
+};
 
 module.exports = {
 	inGrHandler

@@ -5,6 +5,7 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 			const len = selector.length;
 			for (let i = 1; i < len; i++) {
 				if (selector[i].attribs.href.includes("www.in.gr")) {
+					console.log(selector[i].attribs.href);
 					devFunction(selector[i].attribs.href, rp, $);
 				}
 				// prisma.exists

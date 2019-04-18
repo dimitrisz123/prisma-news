@@ -4,6 +4,7 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 			const selector = $("span > a", html);
 			for (let i = 1; i < selector.length; i++) {
 				console.log(selector[i].attribs.href);
+				devFunction(articleUrl, rp, $);
 				// prisma.exists
 				// 	.Article({
 				// 		site: selector[i].attribs.href
@@ -55,6 +56,8 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 // 		})
 // 		.catch(err => console.log("Error rp"));
 // };
+
+const devFunction = (articleUrl, rp, $) => {};
 
 module.exports = {
 	inGrHandler

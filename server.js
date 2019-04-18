@@ -2,7 +2,7 @@ const rp = require("request-promise");
 const $ = require("cheerio");
 const prisma = require("./src/prisma");
 const { sport24Handler } = require("./sport24");
-const { inGr } = require("./inGr");
+const { inGrHandler } = require("./inGr");
 
 const scrapSites = async () => {
 	const urls = {
@@ -11,7 +11,7 @@ const scrapSites = async () => {
 		inGr: "https://www.in.gr/latestnews/",
 		news247: "https://www.news247.gr/latest/"
 	};
-	sport24Handler(urls, rp, $, prisma);
+	//sport24Handler(urls, rp, $, prisma);
 	inGrHandler(urls, rp, $, prisma);
 };
 

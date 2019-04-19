@@ -3,6 +3,7 @@ const $ = require("cheerio");
 const prisma = require("./src/prisma");
 const { sport24Handler } = require("./sport24");
 const { inGrHandler } = require("./inGr");
+const { news247Handler } = require("./news247");
 const http = require("http");
 const https = require("https");
 
@@ -17,7 +18,8 @@ const scrapSites = async () => {
 		news247: "https://www.news247.gr/latest/"
 	};
 	//sport24Handler(urls, rp, $, prisma);
-	inGrHandler(urls, rp, $, prisma);
+	// inGrHandler(urls, rp, $, prisma);
+	news247Handler(urls, rp, $, prisma)
 };
 
 const performance = () => {

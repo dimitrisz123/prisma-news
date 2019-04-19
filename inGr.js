@@ -74,7 +74,7 @@ const devFunction = (articleUrl, rp, $) => {
 			inGrDev.image = $("div.content-single-image > img", article).attr(
 				"data-src"
 			);
-			inGrDev.time = null;
+			inGrDev.time = $("div > time", article).attr("datetime");
 			console.log(inGrDev);
 		})
 		.catch(err => console.log(err));

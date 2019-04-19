@@ -71,8 +71,8 @@ const devFunction = (articleUrl, rp, $) => {
 			)[0].children[0].data;
 			news247Dev.prologue = null;
 			news247Dev.content = null;
-			news247Dev.image = $("figure > img", article)
-			news247Dev.time = $("div > time", article).attr("datetime");
+			news247Dev.image = $("figure > img", article).attr("src")
+			news247Dev.time = $("span > time", article).attr("datetime");
 			console.log(news247Dev);
 		})
 		.catch(err => console.log(err));

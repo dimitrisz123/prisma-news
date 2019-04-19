@@ -66,14 +66,12 @@ const devFunction = (articleUrl, rp, $) => {
 			news247Dev.site = articleUrl;
 			news247Dev.title = $("div > h1.article-body__article-headline", article)[0].children[0].data;
 			news247Dev.summary = $(
-				"div.tooth-row > span.article-summary",
+				"div > h2.article-body__introtext",
 				article
 			)[0].children[0].data;
 			news247Dev.prologue = null;
 			news247Dev.content = null;
-			news247Dev.image = $("div.content-single-image > img", article).attr(
-				"data-src"
-			);
+			news247Dev.image = $("figure > img", article)
 			news247Dev.time = $("div > time", article).attr("datetime");
 			console.log(news247Dev);
 		})

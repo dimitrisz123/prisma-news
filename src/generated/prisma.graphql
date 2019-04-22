@@ -1,5 +1,5 @@
-# source: http://localhost:4466
-# timestamp: Wed Mar 13 2019 23:29:35 GMT+0200 (Eastern European Standard Time)
+# source: https://news-server-prisma-d34d3feb97.herokuapp.com/news-prisma/dev
+# timestamp: Sun Apr 21 2019 19:57:44 GMT+0300 (Eastern European Summer Time)
 
 type AggregateArticle {
   count: Int!
@@ -7,12 +7,15 @@ type AggregateArticle {
 
 type Article implements Node {
   id: ID!
-  site: String
-  title: String
-  summary: String
-  prologue: String
+  site: String!
+  title: String!
+  section: String!
+  summary: String!
+  image: String!
   content: String
-  time: String
+  time: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -26,12 +29,13 @@ type ArticleConnection {
 }
 
 input ArticleCreateInput {
-  site: String
-  title: String
-  summary: String
-  prologue: String
+  site: String!
+  title: String!
+  section: String!
+  summary: String!
+  image: String!
   content: String
-  time: String
+  time: DateTime!
 }
 
 """An edge in a connection."""
@@ -50,28 +54,33 @@ enum ArticleOrderByInput {
   site_DESC
   title_ASC
   title_DESC
+  section_ASC
+  section_DESC
   summary_ASC
   summary_DESC
-  prologue_ASC
-  prologue_DESC
+  image_ASC
+  image_DESC
   content_ASC
   content_DESC
   time_ASC
   time_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ArticlePreviousValues {
   id: ID!
-  site: String
-  title: String
-  summary: String
-  prologue: String
+  site: String!
+  title: String!
+  section: String!
+  summary: String!
+  image: String!
   content: String
-  time: String
+  time: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ArticleSubscriptionPayload {
@@ -116,19 +125,21 @@ input ArticleSubscriptionWhereInput {
 input ArticleUpdateInput {
   site: String
   title: String
+  section: String
   summary: String
-  prologue: String
+  image: String
   content: String
-  time: String
+  time: DateTime
 }
 
 input ArticleUpdateManyMutationInput {
   site: String
   title: String
+  section: String
   summary: String
-  prologue: String
+  image: String
   content: String
-  time: String
+  time: DateTime
 }
 
 input ArticleWhereInput {
@@ -260,6 +271,46 @@ input ArticleWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  section: String
+
+  """All values that are not equal to given value."""
+  section_not: String
+
+  """All values that are contained in given list."""
+  section_in: [String!]
+
+  """All values that are not contained in given list."""
+  section_not_in: [String!]
+
+  """All values less than the given value."""
+  section_lt: String
+
+  """All values less than or equal the given value."""
+  section_lte: String
+
+  """All values greater than the given value."""
+  section_gt: String
+
+  """All values greater than or equal the given value."""
+  section_gte: String
+
+  """All values containing the given string."""
+  section_contains: String
+
+  """All values not containing the given string."""
+  section_not_contains: String
+
+  """All values starting with the given string."""
+  section_starts_with: String
+
+  """All values not starting with the given string."""
+  section_not_starts_with: String
+
+  """All values ending with the given string."""
+  section_ends_with: String
+
+  """All values not ending with the given string."""
+  section_not_ends_with: String
   summary: String
 
   """All values that are not equal to given value."""
@@ -300,46 +351,46 @@ input ArticleWhereInput {
 
   """All values not ending with the given string."""
   summary_not_ends_with: String
-  prologue: String
+  image: String
 
   """All values that are not equal to given value."""
-  prologue_not: String
+  image_not: String
 
   """All values that are contained in given list."""
-  prologue_in: [String!]
+  image_in: [String!]
 
   """All values that are not contained in given list."""
-  prologue_not_in: [String!]
+  image_not_in: [String!]
 
   """All values less than the given value."""
-  prologue_lt: String
+  image_lt: String
 
   """All values less than or equal the given value."""
-  prologue_lte: String
+  image_lte: String
 
   """All values greater than the given value."""
-  prologue_gt: String
+  image_gt: String
 
   """All values greater than or equal the given value."""
-  prologue_gte: String
+  image_gte: String
 
   """All values containing the given string."""
-  prologue_contains: String
+  image_contains: String
 
   """All values not containing the given string."""
-  prologue_not_contains: String
+  image_not_contains: String
 
   """All values starting with the given string."""
-  prologue_starts_with: String
+  image_starts_with: String
 
   """All values not starting with the given string."""
-  prologue_not_starts_with: String
+  image_not_starts_with: String
 
   """All values ending with the given string."""
-  prologue_ends_with: String
+  image_ends_with: String
 
   """All values not ending with the given string."""
-  prologue_not_ends_with: String
+  image_not_ends_with: String
   content: String
 
   """All values that are not equal to given value."""
@@ -380,50 +431,77 @@ input ArticleWhereInput {
 
   """All values not ending with the given string."""
   content_not_ends_with: String
-  time: String
+  time: DateTime
 
   """All values that are not equal to given value."""
-  time_not: String
+  time_not: DateTime
 
   """All values that are contained in given list."""
-  time_in: [String!]
+  time_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  time_not_in: [String!]
+  time_not_in: [DateTime!]
 
   """All values less than the given value."""
-  time_lt: String
+  time_lt: DateTime
 
   """All values less than or equal the given value."""
-  time_lte: String
+  time_lte: DateTime
 
   """All values greater than the given value."""
-  time_gt: String
+  time_gt: DateTime
 
   """All values greater than or equal the given value."""
-  time_gte: String
+  time_gte: DateTime
+  createdAt: DateTime
 
-  """All values containing the given string."""
-  time_contains: String
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
 
-  """All values not containing the given string."""
-  time_not_contains: String
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
 
-  """All values starting with the given string."""
-  time_starts_with: String
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
 
-  """All values not starting with the given string."""
-  time_not_starts_with: String
+  """All values less than the given value."""
+  createdAt_lt: DateTime
 
-  """All values ending with the given string."""
-  time_ends_with: String
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
 
-  """All values not ending with the given string."""
-  time_not_ends_with: String
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 input ArticleWhereUniqueInput {
   id: ID
+  site: String
 }
 
 type BatchPayload {
@@ -431,8 +509,7 @@ type BatchPayload {
   count: Long!
 }
 
-"""Raw JSON value"""
-scalar Json
+scalar DateTime
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -447,7 +524,6 @@ type Mutation {
   upsertArticle(where: ArticleWhereUniqueInput!, create: ArticleCreateInput!, update: ArticleUpdateInput!): Article!
   updateManyArticles(data: ArticleUpdateManyMutationInput!, where: ArticleWhereInput): BatchPayload!
   deleteManyArticles(where: ArticleWhereInput): BatchPayload!
-  executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
 enum MutationType {
@@ -475,10 +551,6 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: String
-}
-
-enum PrismaDatabase {
-  default
 }
 
 type Query {

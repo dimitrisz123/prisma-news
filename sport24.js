@@ -4,24 +4,27 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 			const selector = $("h2 > a", html);
 			const len = selector.length;
 			for (let i = 1; i < len; i++) {
-				prisma.exists
-					.Article({
-						site: selector[i].attribs.href
-					})
-					.then(resp => {
-						const isValid =
-							!resp &&
-							!selector[i].attribs.href.includes("LiveMatches");
-						if (isValid) {
-							addSport24ArticlesToDb(
-								selector[i].attribs.href,
-								rp,
-								$,
-								prisma
-							);
-						}
-					})
-					.catch(err => console.log(err));
+				const newsValidation = !selector[i].attribs.href.includes(
+					"LiveMatches"
+				);
+				if (newsValidation) {
+					prisma.exists
+						.Article({
+							site: selector[i].attribs.href
+						})
+						.then(resp => {
+							const isValid = !resp;
+							if (isValid) {
+								addSport24ArticlesToDb(
+									selector[i].attribs.href,
+									rp,
+									$,
+									prisma
+								);
+							}
+						})
+						.catch(err => console.log(err));
+				}
 			}
 		})
 		.catch(err => console.log(err));
@@ -36,16 +39,17 @@ const addSport24ArticlesToDb = (articleUrl, rp, $, prisma) => {
 						data: {
 							site: articleUrl,
 							title: $("div > h1", article)[0].children[0].data,
+							section: $("div > a.active", article)[0].children[0]
+								.data,
 							summary: $("p.summary", article)[0].children[0]
 								.data,
-							prologue: $("div.prologue", article)
-								.text()
-								.replace(/[\n\t\r]/g, ""),
-							content: $("div.body", article)
-								.text()
-								.replace(/[\n\t\r]/g, ""),
-							time: $("b", "span.byline_date", article)[0]
-								.children[0].data
+							image: $("div.relatedPicture > img", article).attr(
+								"src"
+							),
+							content: null,
+							time: $("p > span.byline_date", article).attr(
+								"content"
+							)
 						}
 					},
 					"{ id title }"

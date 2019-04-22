@@ -1,10 +1,10 @@
 {
   "projects": {
     "prisma": {
-      "schemaPath": "src/generated/schema.graphql",
+      "schemaPath": "src/generated/prisma.graphql",
       "extensions": {
         "endpoints": {
-          "default": "http://localhost:4466"
+          "default": "https://news-server-prisma-d34d3feb97.herokuapp.com/news-prisma/dev"
         }
       }
     }

@@ -17,9 +17,9 @@ const scrapSites = async () => {
 		inGr: "https://www.in.gr/latestnews/",
 		news247: "https://www.news247.gr/latest/"
 	};
-	//sport24Handler(urls, rp, $, prisma);
-	// inGrHandler(urls, rp, $, prisma);
-	news247Handler(urls, rp, $, prisma)
+	sport24Handler(urls, rp, $, prisma);
+	inGrHandler(urls, rp, $, prisma);
+	// news247Handler(urls, rp, $, prisma)
 };
 
 const performance = () => {

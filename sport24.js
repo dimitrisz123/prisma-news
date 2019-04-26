@@ -4,7 +4,6 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 			const selector = $("h2 > a", html);
 			const len = selector.length;
 			for (let i = 0; i < len; i++) {
-				console.log(selector[i].attribs.href);
 				const newsValidation = !selector[i].attribs.href.includes(
 					"LiveMatches"
 				);

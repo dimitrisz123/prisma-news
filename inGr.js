@@ -3,7 +3,7 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 		.then(html => {
 			const selector = $("span > a", html);
 			const len = selector.length;
-			for (let i = 1; i < len; i++) {
+			for (let i = 0; i < len; i++) {
 				const newsValidation =
 					!selector[i].attribs.href.includes("deltio-eidiseon") &&
 					selector[i].attribs.href.includes("www.in.gr");
@@ -32,7 +32,6 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 };
 
 const addIngrArticlesToDb = (articleUrl, rp, $, prisma) => {
-	console.log(articleUrl);
 	rp(articleUrl)
 		.then(article => {
 			prisma.mutation

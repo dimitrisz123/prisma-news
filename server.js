@@ -13,13 +13,12 @@ https.globalAgent.maxSockets = 1;
 const scrapSites = async () => {
 	const urls = {
 		sport24: "https://www.sport24.gr/latest/",
-		contra: "https://www.contra.gr/latest/",
 		inGr: "https://www.in.gr/latestnews/",
 		news247: "https://www.news247.gr/latest/"
 	};
 	sport24Handler(urls, rp, $, prisma);
 	inGrHandler(urls, rp, $, prisma);
-	// news247Handler(urls, rp, $, prisma)
+	news247Handler(urls, rp, $, prisma);
 };
 
 const performance = () => {

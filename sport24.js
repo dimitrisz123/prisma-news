@@ -3,7 +3,8 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 		.then(html => {
 			const selector = $("h2 > a", html);
 			const len = selector.length;
-			for (let i = 1; i < len; i++) {
+			for (let i = 0; i < len; i++) {
+				console.log(selector[i].attribs.href);
 				const newsValidation = !selector[i].attribs.href.includes(
 					"LiveMatches"
 				);
@@ -52,7 +53,7 @@ const addSport24ArticlesToDb = (articleUrl, rp, $, prisma) => {
 							)
 						}
 					},
-					"{ id title }"
+					"{ id site title }"
 				)
 				.then(response => console.log(response))
 				.catch(err => console.log("Error adding to the db"));

@@ -34,6 +34,12 @@ const inGrHandler = ({ inGr }, rp, $, prisma) => {
 const addIngrArticlesToDb = (articleUrl, rp, $, prisma) => {
 	rp(articleUrl)
 		.then(article => {
+			// console
+			// 	.log(
+			// 		$("div> time", article).attr("datetime"),
+			// 		$("div> time", article).attr("datetime")
+			// 	)
+			// 	.toISOString();
 			prisma.mutation
 				.createArticle(
 					{
@@ -57,17 +63,22 @@ const addIngrArticlesToDb = (articleUrl, rp, $, prisma) => {
 									article
 								).attr("data-src") || "not exist",
 							content: null,
-							time:
-								$("div > time", article).attr("datetime") ||
-								"not exist"
+							time: new Date(
+								$("div> time", article)
+									.attr("datetime")
+									.split("T")[0] +
+									$("div> time", article)
+										.attr("title")
+										.split(",")[1]
+							).toISOString()
 						}
 					},
-					"{ id title site }"
+					"{ id title site time }"
 				)
 				.then(response => console.log(response))
 				.catch(err => console.log("4"));
 		})
-		.catch(err => console.log("5"));
+		.catch(err => console.log("inGr, 5", err, articleUrl));
 };
 
 // const devFunction = (articleUrl, rp, $) => {

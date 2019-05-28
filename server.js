@@ -10,7 +10,7 @@ const https = require("https");
 http.globalAgent.maxSockets = 1;
 https.globalAgent.maxSockets = 1;
 
-const scrapSites = async () => {
+const scrapSites = () => {
 	const urls = {
 		sport24: "https://www.sport24.gr/latest/",
 		inGr: "https://www.in.gr/latestnews/",
@@ -31,5 +31,9 @@ const performance = () => {
 };
 
 performance();
-
 scrapSites();
+
+setInterval(() => {
+	scrapSites();
+	console.log("works");
+}, 1800000);

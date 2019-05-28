@@ -47,17 +47,19 @@ const addSport24ArticlesToDb = (articleUrl, rp, $, prisma) => {
 								"src"
 							),
 							content: null,
-							time: $("p > span.byline_date", article).attr(
-								"content"
-							)
+							time: new Date(
+								$("p > span.byline_date", article)
+									.attr("content")
+									.split("+")[0]
+							).toISOString()
 						}
 					},
-					"{ id site title }"
+					"{ id title site time }"
 				)
 				.then(response => console.log(response))
 				.catch(err => console.log("Error adding to the db"));
 		})
-		.catch(err => console.log("Error rp"));
+		.catch(err => console.log(err));
 };
 
 module.exports = {

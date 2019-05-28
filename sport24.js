@@ -33,6 +33,13 @@ const sport24Handler = ({ sport24 }, rp, $, prisma) => {
 const addSport24ArticlesToDb = (articleUrl, rp, $, prisma) => {
 	rp(articleUrl)
 		.then(article => {
+			console.log(
+				new Date(
+					$("p > span.byline_date", article)
+						.attr("content")
+						.split("+")[0]
+				).toISOString()
+			);
 			prisma.mutation
 				.createArticle(
 					{

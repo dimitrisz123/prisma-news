@@ -53,7 +53,7 @@ const addnews247ArticlesToDb = (articleUrl, rp, $, prisma) => {
 							time: new Date(
 								$("span > time", article).attr("datetime") ||
 									$("div > time", article).attr("datetime")
-							)
+							).toISOString()
 						}
 					},
 					"{ id title site time }"

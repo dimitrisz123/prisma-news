@@ -32,9 +32,9 @@ const addnews247ArticlesToDb = (articleUrl, rp, $, prisma) => {
 		.then(article => {
 			console.log(
 				articleUrl,
-				"1",
-				$("span > time", article).attr("datetime") + "+03:00" || "2",
-				$("div > time", article).attr("datetime") + "+03:00"
+
+				($("span > time", article).attr("datetime") ||
+					$("div > time", article).attr("datetime")) + "+03:00"
 			);
 			prisma.mutation
 				.createArticle(

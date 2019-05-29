@@ -50,7 +50,7 @@ const addSport24ArticlesToDb = (articleUrl, rp, $, prisma) => {
 							time: new Date(
 								$("p > span.byline_date", article)
 									.attr("content")
-									.split("+")[0]
+									.split("+")[0] + "+03:00"
 							).toISOString()
 						}
 					},

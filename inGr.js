@@ -69,7 +69,8 @@ const addIngrArticlesToDb = (articleUrl, rp, $, prisma) => {
 									.split("T")[0] +
 									$("div> time", article)
 										.attr("title")
-										.split(",")[1]
+										.split(",")[1] +
+									"+03:00"
 							).toISOString()
 						}
 					},

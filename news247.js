@@ -51,8 +51,10 @@ const addnews247ArticlesToDb = (articleUrl, rp, $, prisma) => {
 							image: $("figure > img", article).attr("src"),
 							content: null,
 							time: new Date(
-								$("span > time", article).attr("datetime") ||
-									$("div > time", article).attr("datetime")
+								$("span > time", article).attr("datetime") +
+									"+03:00" ||
+									$("div > time", article).attr("datetime") +
+										"+03:00"
 							).toISOString()
 						}
 					},

@@ -30,12 +30,12 @@ const news247Handler = ({ news247 }, rp, $, prisma) => {
 const addnews247ArticlesToDb = (articleUrl, rp, $, prisma) => {
 	rp(articleUrl)
 		.then(article => {
-			console.log(
-				articleUrl,
+			// console.log(
+			// 	articleUrl,
 
-				($("span > time", article).attr("datetime") ||
-					$("div > time", article).attr("datetime")) + "+03:00"
-			);
+			// 	($("span > time", article).attr("datetime") ||
+			// 		$("div > time", article).attr("datetime")) + "+03:00"
+			// );
 			prisma.mutation
 				.createArticle(
 					{
@@ -57,10 +57,9 @@ const addnews247ArticlesToDb = (articleUrl, rp, $, prisma) => {
 							image: $("figure > img", article).attr("src"),
 							content: null,
 							time: new Date(
-								$("span > time", article).attr("datetime") +
-									"+03:00" ||
-									$("div > time", article).attr("datetime") +
-										"+03:00"
+								($("span > time", article).attr("datetime") ||
+									$("div > time", article).attr("datetime")) +
+									"+03:00"
 							).toISOString()
 						}
 					},

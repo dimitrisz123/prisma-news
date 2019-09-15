@@ -59,9 +59,9 @@ const addIngrArticlesToDb = (articleUrl, rp, $, prisma) => {
 								)[0].children[0].data || "not exist",
 							image:
 								$(
-									"div.content-single-image > img",
+									"div.content-single-image > a",
 									article
-								).attr("data-src") || "not exist",
+								).attr("href") || "not exist",
 							content: null,
 							time: new Date(
 								$("div> time", article)

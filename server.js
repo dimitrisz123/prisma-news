@@ -11,29 +11,29 @@ http.globalAgent.maxSockets = 1;
 https.globalAgent.maxSockets = 1;
 
 const scrapSites = () => {
-	const urls = {
-		sport24: "https://www.sport24.gr/latest/",
-		inGr: "https://www.in.gr/latestnews/",
-		news247: "https://www.news247.gr/latest/"
-	};
-	sport24Handler(urls, rp, $, prisma);
-	inGrHandler(urls, rp, $, prisma);
-	news247Handler(urls, rp, $, prisma);
+  const urls = {
+    sport24: "https://www.sport24.gr/latest/",
+    inGr: "https://www.in.gr/latestnews/",
+    news247: "https://www.news247.gr/latest/"
+  };
+  sport24Handler(urls, rp, $, prisma);
+  inGrHandler(urls, rp, $, prisma);
+  news247Handler(urls, rp, $, prisma);
 };
 
 const performance = () => {
-	const used = process.memoryUsage();
-	for (let key in used) {
-		console.log(
-			`${key} ${Math.round((used[key] / 1024 / 1024) * 100) / 100} MB`
-		);
-	}
+  const used = process.memoryUsage();
+  for (let key in used) {
+    console.log(
+      `${key} ${Math.round((used[key] / 1024 / 1024) * 100) / 100} MB`
+    );
+  }
 };
 
 performance();
 scrapSites();
 
 setInterval(() => {
-	scrapSites();
-	console.log("works");
+  scrapSites();
+  console.log("works");
 }, 1800000);
